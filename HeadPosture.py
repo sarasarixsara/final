@@ -134,19 +134,19 @@ while cap.isOpened() and GPIO.input(salida1)==0 and GPIO.input(salida2)==0:
             # See where the user's head tilting
             if y < -10:
                 text = "Looking Left"
-                Stop(x)
+                Stop()
             elif y > 10:
                 text = "Looking Right"
-                Stop(x)
+                Stop()
             elif x < 6:
                 text = "Looking Down"
-                Up(x)
+                Up()
             elif x > 10:
                 text = "Looking Up"
-                Down(x)
+                Down()
             else:
                 text = "Forward"
-                Stop(x)
+                Stop()
 
             
 
