@@ -9,6 +9,11 @@ GPIO.setmode(GPIO.BOARD)
 
 motorA_1=11
 motorA_2=13
+salida1=19
+salida2=21
+
+GPIO.setup(salida1, GPIO.OUT)
+GPIO.setup(salida2,GPIO.OUT)
 
 GPIO.setup(motorA_1, GPIO.OUT)
 GPIO.setup(motorA_2,GPIO.OUT)
@@ -26,24 +31,35 @@ cap = cv2.VideoCapture(0)
 ###############################################################################################33
 
 
-def Up(x): #cuando mira hacia abajo
+def Up(): #cuando mira hacia abajo
      
         GPIO.output(motorA_1,1)
         GPIO.output(motorA_2,0)
         print("subiendo")
 
-def Down(x): #cuando mira hacia arriba
+def Down(): #cuando mira hacia arriba
 
         GPIO.output(motorA_1,0)
         GPIO.output(motorA_2,1)
         print("bajando")
 
-def Stop(x):
+def Stop():
         GPIO.output(motorA_1,0)
         GPIO.output(motorA_2,0)
         print("kieto")
         
-while cap.isOpened():
+if GPIO.input(salida1)==1 and GPIO.input(salida2)==0:
+    Up()
+
+if GPIO.input(salida1)==0 and GPIO.input(salida2)==1:
+    Down()
+
+if GPIO.input(salida1)==1 and GPIO.input(salida2)==1:
+    Stop()
+
+
+while cap.isOpened() and GPIO.input(salida1)==0 and GPIO.input(salida2)==0:
+
     success, image = cap.read()
 
     start = time.time()
@@ -175,5 +191,10 @@ while cap.isOpened():
 
     if cv2.waitKey(5) & 0xFF == 27:
         break
+
+
+
+
+
 cap.release()
 GPIO.cleanup()
