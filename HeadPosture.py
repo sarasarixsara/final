@@ -196,5 +196,5 @@ while cap.isOpened() and GPIO.input(salida1)==0 and GPIO.input(salida2)==0:
 
 
 
-cap.release()
-GPIO.cleanup()
+#cap.release()
+#GPIO.cleanup()
